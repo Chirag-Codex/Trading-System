@@ -1,0 +1,16 @@
+package com.chirag.trading.service;
+
+import com.chirag.trading.Model.User;
+import com.chirag.trading.domain.VerificationType;
+
+public interface UserService {
+    public User findUserProfileByJwt(String jwt) throws Exception;
+    public User findUserByEmail(String email) throws Exception;
+    public User findUserById(Long userId) throws Exception;
+
+    public User enableTwoFactorAuthentication(VerificationType verificationType,String sendTo,User user);
+
+    User updatePassword(User user,String newPassword);
+
+
+}
