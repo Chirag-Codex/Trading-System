@@ -1,4 +1,4 @@
-/* components/Auth.css */
+components/Auth.css
 .auth-container {
     background-image: url('/src/assets/background2.jpg');
     height: 100vh;
@@ -237,162 +237,6 @@
     border-radius: 2px;
 }
 
-/* ========== ADDED STYLES FOR 2FA ========== */
-
-/* OTP Input Fields Styling */
-.auth-container input[type="otp"],
-.auth-container .otp-input {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.2rem;
-    background: rgba(10, 18, 30, 0.8) !important;
-}
-
-.auth-container input[type="otp"]:focus,
-.auth-container .otp-input:focus {
-    background: rgba(15, 25, 40, 0.9) !important;
-    transform: scale(1.05);
-    transition: transform 0.2s ease;
-}
-
-/* 2FA Dialog Styles */
-.auth-container .dialog-content {
-    background: linear-gradient(145deg, #0e1a2b, #0b1220);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    border-radius: 1.5rem;
-    box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(59, 130, 246, 0.2) inset,
-        0 0 30px rgba(59, 130, 246, 0.3);
-}
-
-/* Loading State for 2FA */
-.auth-container .loading-spinner {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 2px solid rgba(59, 130, 246, 0.3);
-    border-top-color: #3b82f6;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* 2FA Success Animation */
-.auth-container .success-checkmark {
-    animation: checkmarkPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes checkmarkPop {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    80% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Enhanced OTP Input Group */
-.auth-container .otp-group {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 1.5rem 0;
-}
-
-.auth-container .otp-slot {
-    width: 3rem;
-    height: 3.5rem;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    background: rgba(10, 18, 30, 0.8);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    border-radius: 0.75rem;
-    transition: all 0.2s ease;
-    color: #e2e8f0;
-}
-
-.auth-container .otp-slot:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-    transform: scale(1.05);
-    background: rgba(15, 25, 40, 0.9);
-}
-
-/* Back Button for 2FA */
-.auth-container .back-button {
-    background: transparent;
-    border: none;
-    color: #60a5fa;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.auth-container .back-button:hover {
-    color: #93c5fd;
-    transform: translateX(-4px);
-}
-
-/* 2FA Status Badge */
-.auth-container .twofa-badge-enabled {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 2rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-}
-
-.auth-container .twofa-badge-disabled {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 2rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-/* 2FA Info Card */
-.auth-container .info-card {
-    background: rgba(59, 130, 246, 0.1);
-    border-left: 3px solid #3b82f6;
-    padding: 1rem;
-    border-radius: 0.75rem;
-    margin: 1rem 0;
-    backdrop-filter: blur(5px);
-}
-
-.auth-container .info-card p {
-    color: #94a3b8;
-    font-size: 0.875rem;
-    margin: 0;
-}
-
-/* ========== END OF ADDED 2FA STYLES ========== */
-
 /* Enhanced animations */
 @keyframes slideUpFade {
     0% {
@@ -464,13 +308,6 @@
     .auth-container .title::after {
         width: 60px;
     }
-    
-    /* Mobile OTP adjustments */
-    .auth-container .otp-slot {
-        width: 2.5rem;
-        height: 3rem;
-        font-size: 1.25rem;
-    }
 }
 
 /* Loading state for buttons */
@@ -504,15 +341,4 @@
     background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-}
-
-/* Dark mode enhancements for 2FA */
-@media (prefers-color-scheme: dark) {
-    .auth-container .auth-modal {
-        background: linear-gradient(145deg, #0a0f1a, #080c15);
-    }
-    
-    .auth-container .otp-slot {
-        background: rgba(5, 10, 18, 0.9);
-    }
 }

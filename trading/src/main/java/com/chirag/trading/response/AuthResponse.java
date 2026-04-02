@@ -1,3 +1,18 @@
+//package com.chirag.trading.response;
+//
+//import lombok.Data;
+//
+//@Data
+//public class AuthResponse {
+//    private String jwt;
+//    private boolean status;
+//    private String message;
+//    private boolean isTwoFactorAuthEnabled;
+//    private String session;
+//}
+
+
+
 package com.chirag.trading.response;
 
 import lombok.Data;
@@ -7,6 +22,10 @@ public class AuthResponse {
     private String jwt;
     private boolean status;
     private String message;
-    private boolean isTwoFactorAuthEnabled;
+    private boolean twoFactorAuthEnabled;
     private String session;
+
+    public boolean isTwoFactorAuthEnabled() {
+        return twoFactorAuthEnabled;
+    }
 }

@@ -1,17 +1,15 @@
+
 package com.chirag.trading.Model;
 
 import com.chirag.trading.domain.VerificationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 public class ForgotPasswordToken {
     @Id
-    @GeneratedValue
     private String id;
 
     @OneToOne
@@ -19,7 +17,18 @@ public class ForgotPasswordToken {
 
     private String otp;
 
+    @Enumerated(EnumType.STRING)
     private VerificationType verificationType;
 
     private String sendTo;
+
+    private LocalDateTime expiryDate;
+
+
+    @PrePersist
+    protected void onCreate() {
+        if (expiryDate == null) {
+            expiryDate = LocalDateTime.now().plusMinutes(15);
+        }
+    }
 }

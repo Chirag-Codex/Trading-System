@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -23,57 +24,78 @@ import { getUser } from './State/Auth/Action'
 import { Toaster } from 'react-hot-toast'
 
 function App() {
-  const {auth}=useSelector(store=>store)
-  const dispatch=useDispatch()
-  console.log("auth---",auth);
+  const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
   
-  useEffect(()=>{
-    dispatch(getUser(auth.jwt || localStorage.getItem("jwt")))
-  },[auth.jwt])
+  useEffect(() => {
+    const jwt = auth.jwt || localStorage.getItem("jwt")
+    if (jwt) {
+      dispatch(getUser(jwt)).finally(() => setLoading(false))
+    } else {
+      setLoading(false)
+    }
+  }, [auth.jwt, dispatch])
+
+  // Show loading state while checking authentication
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    )
+  }
+
   return (
     <>
-    
-    {auth.user ? <div className='w-full'>
-       <Navbar />
-       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/portfolio' element={<Portfolio />} />
-        <Route path='/activity' element={<Activity />} />
-        <Route path='/wallet' element={<Wallet />} />
-        <Route path='/withdrawal' element={<Withdrawal />} />
-        <Route path='/payment-details' element={<PaymentDetails />} />
-        <Route path='/market/:coinId' element={<StockDetails />} />
-        <Route path='/watchlist' element={<Watchlist />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/search' element={<SearchCoin />} />
-        <Route path='*' element={<NotFound />} />
-       </Routes>
-        <Toaster
+      {auth.user ? (
+        <div className='w-full'>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/portfolio' element={<Portfolio />} />
+            <Route path='/activity' element={<Activity />} />
+            <Route path='/wallet' element={<Wallet />} />
+            <Route path='/withdrawal' element={<Withdrawal />} />
+            <Route path='/payment-details' element={<PaymentDetails />} />
+            <Route path='/market/:coinId' element={<StockDetails />} />
+            <Route path='/watchlist' element={<Watchlist />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/search' element={<SearchCoin />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </div>
+      ) : (
+        <Auth />
+      )}
+      
+      <Toaster
         position="top-center"
         reverseOrder={false}
         toastOptions={{
           duration: 4000,
           style: {
-            background: '#363636',
+            background: '#1a2236',
             color: '#fff',
+            border: '1px solid #374151',
+            borderRadius: '8px',
           },
           success: {
             duration: 3000,
             iconTheme: {
-              primary: 'green',
-              secondary: 'white',
+              primary: '#10b981',
+              secondary: '#fff',
             },
           },
           error: {
             duration: 4000,
             iconTheme: {
-              primary: 'red',
-              secondary: 'white',
+              primary: '#ef4444',
+              secondary: '#fff',
             },
           },
         }}
       />
-     </div>:<Auth />}
     </>
   )
 }
