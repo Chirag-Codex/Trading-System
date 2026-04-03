@@ -1,4 +1,32 @@
 import api from "@/config/api";
+import {
+  ENABLE_TWO_STEP_AUTHENTICATION_FAILURE,
+  ENABLE_TWO_STEP_AUTHENTICATION_REQUEST,
+  ENABLE_TWO_STEP_AUTHENTICATION_SUCCESS,
+  GET_USER_FAILURE,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  LOGIN_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_TWO_STEP_SUCCESS,
+  LOGOUT,
+  REGISTER_FAILURE,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  SEND_RESET_PASSWORD_OTP_FAILURE,
+  SEND_RESET_PASSWORD_OTP_REQUEST,
+  SEND_RESET_PASSWORD_OTP_SUCCESS,
+  SEND_VERIFICATION_OTP_FAILURE,
+  SEND_VERIFICATION_OTP_REQUEST,
+  SEND_VERIFICATION_OTP_SUCCESS,
+  VERIFY_OTP_FAILURE,
+  VERIFY_OTP_REQUEST,
+  VERIFY_OTP_SUCCESS,
+  VERIFY_RESET_PASSWORD_OTP_FAILURE,
+  VERIFY_RESET_PASSWORD_OTP_REQUEST,
+  VERIFY_RESET_PASSWORD_OTP_SUCCESS,
+} from "./ActionType";
 
 // ========== REGISTER ==========
 export const register = (userData) => async (dispatch) => {
@@ -11,7 +39,10 @@ export const register = (userData) => async (dispatch) => {
     localStorage.setItem("jwt", user.jwt);
     return user;
   } catch (error) {
-    dispatch({ type: REGISTER_FAILURE, payload: error.response?.data?.message || error.message });
+    dispatch({
+      type: REGISTER_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
     console.log(error);
     throw error;
   }
@@ -34,7 +65,11 @@ export const login = (userData) => async (dispatch) => {
           message: user.message,
         },
       });
-      return { twoFactorRequired: true, sessionId: user.session, email: userData.data.email };
+      return {
+        twoFactorRequired: true,
+        sessionId: user.session,
+        email: userData.data.email,
+      };
     } else {
       dispatch({ type: LOGIN_SUCCESS, payload: user.jwt });
       localStorage.setItem("jwt", user.jwt);
@@ -42,7 +77,10 @@ export const login = (userData) => async (dispatch) => {
       return { success: true };
     }
   } catch (error) {
-    dispatch({ type: LOGIN_FAILURE, payload: error.response?.data?.message || error.message });
+    dispatch({
+      type: LOGIN_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
     console.log(error);
     throw error;
   }
@@ -62,7 +100,10 @@ export const getUser = (jwt) => async (dispatch) => {
     dispatch({ type: GET_USER_SUCCESS, payload: user });
     return user;
   } catch (error) {
-    dispatch({ type: GET_USER_FAILURE, payload: error.response?.data?.message || error.message });
+    dispatch({
+      type: GET_USER_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
     console.log(error);
     throw error;
   }
@@ -99,7 +140,7 @@ export const sendTwoFactorOtp = (email, password) => async (dispatch) => {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     console.log("Send OTP response:", response.data);
@@ -144,7 +185,7 @@ export const enableTwoFactorAuth = (otp) => async (dispatch, getState) => {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     const updatedUser = response.data;
@@ -177,7 +218,7 @@ export const verifyLoginOtp = (otp, sessionId) => async (dispatch) => {
     console.log("Verifying login OTP:", otp, "Session ID:", sessionId);
 
     const response = await api.post(
-      `${API_BASE_URL}/auth/two-factor/otp/${otp}?id=${sessionId}`
+      `${API_BASE_URL}/auth/two-factor/otp/${otp}?id=${sessionId}`,
     );
 
     const data = response.data;
@@ -196,8 +237,14 @@ export const verifyLoginOtp = (otp, sessionId) => async (dispatch) => {
 
     return { success: true, jwt: data.jwt };
   } catch (error) {
-    console.error("Verify login OTP error:", error.response?.data || error.message);
-    dispatch({ type: VERIFY_OTP_FAILURE, payload: error.response?.data?.message || error.message });
+    console.error(
+      "Verify login OTP error:",
+      error.response?.data || error.message,
+    );
+    dispatch({
+      type: VERIFY_OTP_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
     throw error;
   }
 };
@@ -206,10 +253,9 @@ export const verifyLoginOtp = (otp, sessionId) => async (dispatch) => {
 export const sendResetPasswordOtp = (email) => async (dispatch) => {
   dispatch({ type: SEND_RESET_PASSWORD_OTP_REQUEST });
   try {
-    const response = await api.post(
-      `${API_BASE_URL}/auth/forgot-password`,
-      { email }
-    );
+    const response = await api.post(`${API_BASE_URL}/auth/forgot-password`, {
+      email,
+    });
 
     const data = response.data;
     dispatch({
@@ -231,10 +277,10 @@ export const sendResetPasswordOtp = (email) => async (dispatch) => {
 export const verifyResetOtp = (sessionId, otp) => async (dispatch) => {
   dispatch({ type: VERIFY_RESET_PASSWORD_OTP_REQUEST });
   try {
-    const response = await api.post(
-      `${API_BASE_URL}/auth/verify-reset-otp`,
-      { sessionId, otp }
-    );
+    const response = await api.post(`${API_BASE_URL}/auth/verify-reset-otp`, {
+      sessionId,
+      otp,
+    });
 
     const data = response.data;
     dispatch({
@@ -253,25 +299,26 @@ export const verifyResetOtp = (sessionId, otp) => async (dispatch) => {
 };
 
 // ========== RESET PASSWORD WITH TOKEN ==========
-export const verifyResetPasswordOtp = (resetToken, newPassword) => async (dispatch) => {
-  dispatch({ type: VERIFY_RESET_PASSWORD_OTP_REQUEST });
-  try {
-    const response = await api.post(
-      `${API_BASE_URL}/auth/reset-password`,
-      { resetToken, newPassword }
-    );
+export const verifyResetPasswordOtp =
+  (resetToken, newPassword) => async (dispatch) => {
+    dispatch({ type: VERIFY_RESET_PASSWORD_OTP_REQUEST });
+    try {
+      const response = await api.post(`${API_BASE_URL}/auth/reset-password`, {
+        resetToken,
+        newPassword,
+      });
 
-    dispatch({ type: VERIFY_RESET_PASSWORD_OTP_SUCCESS });
+      dispatch({ type: VERIFY_RESET_PASSWORD_OTP_SUCCESS });
 
-    return { success: true };
-  } catch (error) {
-    dispatch({
-      type: VERIFY_RESET_PASSWORD_OTP_FAILURE,
-      payload: error.response?.data?.message || error.message,
-    });
-    throw error;
-  }
-};
+      return { success: true };
+    } catch (error) {
+      dispatch({
+        type: VERIFY_RESET_PASSWORD_OTP_FAILURE,
+        payload: error.response?.data?.message || error.message,
+      });
+      throw error;
+    }
+  };
 
 // ========== DISABLE 2FA ==========
 export const disableTwoFactorAuth = () => async (dispatch) => {
@@ -290,7 +337,7 @@ export const disableTwoFactorAuth = () => async (dispatch) => {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     const updatedUser = response.data;
@@ -339,4 +386,3 @@ export const clearError = () => (dispatch) => {
 export const updateUser = (user) => (dispatch) => {
   dispatch({ type: "UPDATE_USER", payload: user });
 };
-
