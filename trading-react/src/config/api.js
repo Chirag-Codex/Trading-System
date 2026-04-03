@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const baseUrl = "https://faithful-youth-production.up.railway.app";
+export const API_BASE_URL = "https://faithful-youth-production.up.railway.app";
 const api = axios.create({
-  baseURL: baseUrl,
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
