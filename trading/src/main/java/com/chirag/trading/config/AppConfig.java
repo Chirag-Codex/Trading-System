@@ -36,7 +36,8 @@ public class AppConfig {
                 CorsConfiguration cfg=new CorsConfiguration();
                 cfg.setAllowedOrigins(List.of(
                         "http://localhost:5173",
-                        "http://localhost:3000"));
+                        "http://localhost:3000",
+                        "https://trading-system-frontend-blue.vercel.app"));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);
                 cfg.setExposedHeaders(Arrays.asList("Authorization"));
