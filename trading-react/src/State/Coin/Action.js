@@ -19,7 +19,7 @@ import {
   TOP_50_COINS_SUCCESS,
 } from "./ActionType";
 import api from "@/config/api";
-
+const API_BASE_URL="https://faithful-youth-production.up.railway.app";
 export const getCoinList = (page) => async (dispatch) => {
   dispatch({ type: FETCH_COIN_LIST_REQUEST });
   try {

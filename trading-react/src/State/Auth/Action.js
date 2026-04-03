@@ -28,6 +28,7 @@ import {
   VERIFY_RESET_PASSWORD_OTP_SUCCESS,
 } from "./ActionType";
 
+const API_BASE_URL="https://faithful-youth-production.up.railway.app";
 // ========== REGISTER ==========
 export const register = (userData) => async (dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
