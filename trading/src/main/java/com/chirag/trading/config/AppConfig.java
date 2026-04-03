@@ -61,6 +61,8 @@
 
 
 
+
+
 package com.chirag.trading.config;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -94,6 +96,7 @@ public class AppConfig {
                 )
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
+
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         return http.build();
@@ -101,30 +104,23 @@ public class AppConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        return new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                CorsConfiguration cfg = new CorsConfiguration();
-
-                cfg.setAllowedOrigins(Arrays.asList(
-                        "https://trading-system-frontend-blue.vercel.app",
-                        "http://localhost:5173",
-                        "http://localhost:3000"
-                ));
-
-                cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        CorsConfiguration cfg = new CorsConfiguration();
 
 
-                cfg.setAllowCredentials(true);
+        cfg.setAllowedOriginPatterns(Arrays.asList(
+                "https://trading-system-frontend-blue.vercel.app",
+                "http://localhost:5173",
+                "http://localhost:3000"
+        ));
 
-                cfg.setAllowedHeaders(Collections.singletonList("*"));
+        cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        cfg.setAllowCredentials(true);
+        cfg.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Accept"));
+        cfg.setExposedHeaders(Arrays.asList("Authorization"));
+        cfg.setMaxAge(3600L);
 
-                cfg.setExposedHeaders(Arrays.asList("Authorization"));
-                
-                cfg.setMaxAge(3600L);
-
-                return cfg;
-            }
-        };
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cfg);
+        return source;
     }
 }
