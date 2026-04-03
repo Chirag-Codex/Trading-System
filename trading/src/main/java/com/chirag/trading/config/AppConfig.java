@@ -1,6 +1,9 @@
 package com.chirag.trading.config;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,9 +13,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 public class AppConfig {
@@ -37,7 +38,8 @@ public class AppConfig {
                 cfg.setAllowedOrigins(List.of(
                         "http://localhost:5173",
                         "http://localhost:3000",
-                        "https://trading-system-frontend-blue.vercel.app"));
+                        "https://trading-system-frontend-blue.vercel.app",
+                     "https://faithful-youth-production.up.railway.app"));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);
                 cfg.setExposedHeaders(Arrays.asList("Authorization"));
