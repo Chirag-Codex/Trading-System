@@ -23,7 +23,7 @@ import api from "@/config/api";
 
 export const getCoinList = (page) => async (dispatch) => {
   dispatch({ type: FETCH_COIN_LIST_REQUEST });
-  const baseUrl = "http://localhost:5454";
+  const baseUrl = "faithful-youth-production.up.railway.app";
   try {
     const { data } = await axios.get(`${baseUrl}/coins?page=${page}`);
 
