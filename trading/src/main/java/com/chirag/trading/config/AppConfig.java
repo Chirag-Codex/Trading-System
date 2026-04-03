@@ -77,7 +77,7 @@ public class AppConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configure(http)) // This will use CorsConfig
+                .cors(cors -> {}) // Empty lambda to enable CORS (this will use CorsConfig)
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(management ->
                         management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
