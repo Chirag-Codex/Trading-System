@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const baseUrl = "http://localhost:5454";
+export const baseUrl = "faithful-youth-production.up.railway.app";
+ex
 
 const api=axios.create({
     baseURL: baseUrl,
