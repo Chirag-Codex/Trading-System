@@ -91,7 +91,7 @@ public class PaymentServiceImpl implements PaymentService{
 
             paymentLinkRequest.put("reminder_enable",true);
 
-            paymentLinkRequest.put("callback_url","http://localhost:5173/wallet?order_id="+orderId);
+            paymentLinkRequest.put("callback_url","https://trading-system-frontend-blue.vercel.app/wallet?order_id="+orderId);
             paymentLinkRequest.put("callback_method","get");
 
             PaymentLink payment=razorpay.paymentLink.create(paymentLinkRequest);
