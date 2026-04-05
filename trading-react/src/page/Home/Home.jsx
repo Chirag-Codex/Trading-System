@@ -37,7 +37,7 @@ function Home() {
   const handleFetchCoinDetails = async (prompt) => {
     setLoading(true);
     try {
-      const { data } = await axios.post("https://faithful-youth-production.up.railway.app/ai/chat", {
+      const { data } = await axios.post("http://localhost:5454/ai/chat", {
         prompt,
       });
 
@@ -78,6 +78,7 @@ function Home() {
   return (
     <div className="relative">
       <div className="lg:flex">
+        {/* Main Content Sections (Table/Chart) */}
         <div className="lg:w-[50%] lg:border-r">
           <div className="flex items-center gap-5 p-5">
             {["all", "top50", "topGainers", "topLosers"].map((cat) => (

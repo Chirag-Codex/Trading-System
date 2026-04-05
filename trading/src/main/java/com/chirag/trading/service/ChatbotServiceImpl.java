@@ -181,7 +181,7 @@ import java.util.Map;
 public class ChatbotServiceImpl implements ChatbotService {
 
     private final String GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
-    private final String GEMINI_API_KEY = "AIzaSyAWzSpwWEHdLAX_KQTJaVOiqkNG3LiCef0";
+    private final String GEMINI_API_KEY = "AIzaSyCbKk-GoJ4AwAxLlKLs6jAWFQLq6qdKREM";
     private final RestTemplate restTemplate = new RestTemplate();
 
     /**
